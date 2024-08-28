@@ -13,7 +13,7 @@ PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    """returns a logging.Logger object
+    """returns the log message obfuscated
     """
     for f in fields:
         message = re.sub(f'{f}=.*?{separator}',
@@ -22,12 +22,7 @@ def filter_datum(fields: List[str], redaction: str,
 
 
 def get_logger() -> logging.Logger:
-    """
-    Returns a Logger object for handling Personal Data
-
-    Returns:
-        A Logger object with INFO log level and RedactingFormatter
-        formatter for filtering PII fields
+    """returns a logging.Logger object
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
