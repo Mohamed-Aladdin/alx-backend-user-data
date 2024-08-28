@@ -42,11 +42,11 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     host_name = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = environ.get("PERSONAL_DATA_DB_NAME")
 
-    connection = mysql.connector.connection.MySQLConnection(user=username,
+    cnx = mysql.connector.connection.MySQLConnection(user=username,
                                                      password=password,
                                                      host=host_name,
                                                      database=db_name)
-    return connection
+    return cnx
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
-    field_names = [i[0] for i in cursor.description]
+    field_names = [f[0] for f in cursor.description]
 
     logger = get_logger()
 
