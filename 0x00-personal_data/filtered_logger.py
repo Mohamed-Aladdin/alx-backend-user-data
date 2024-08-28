@@ -16,8 +16,8 @@ def filter_datum(fields: List[str], redaction: str,
     """returns the log message obfuscated
     """
     for f in fields:
-        message = re.sub(f"{f}=.*?{separator}",
-                         f"{f}={redaction}{separator}", message)
+        message = re.sub(f'{f}=.*?{separator}',
+                         f'{f}={redaction}{separator}', message)
     return message
 
 
@@ -60,7 +60,7 @@ def main():
     logger = get_logger()
 
     for row in cursor:
-        string_row = "".join(f"{f}={str(r)}; " for r, f in zip(row, fields))
+        string_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, fields))
         logger.info(string_row.strip())
     cursor.close()
     db.close()
