@@ -8,7 +8,6 @@ from os import environ
 import mysql.connector
 
 
-# # PII fields to be redacted
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
