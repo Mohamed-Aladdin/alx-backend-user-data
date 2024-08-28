@@ -56,7 +56,7 @@ def main() -> None:
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
-    fields = [col[0] for cols in cursor.description]
+    fields = [col[0] for col in cursor.description]
     logger = get_logger()
 
     for row in cursor:
