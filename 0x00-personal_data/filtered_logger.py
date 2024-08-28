@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Task 0, 1, 2, 3, 4 Module"""
 
-from typing import List
 import re
 import logging
-from os import environ
 import mysql.connector
+from os import environ
+from typing import List
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
