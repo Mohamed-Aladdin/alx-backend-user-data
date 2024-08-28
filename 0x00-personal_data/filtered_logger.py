@@ -4,7 +4,7 @@
 import re
 import logging
 import mysql.connector
-import os
+from os import environ
 from typing import List
 
 
@@ -37,10 +37,10 @@ def get_logger() -> logging.Logger:
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """returns a connector to the database
     """
-    username = os.get("PERSONAL_DATA_DB_USERNAME", "root")
-    password = os.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host_name = os.get("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.get("PERSONAL_DATA_DB_NAME")
+    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host_name = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = environ.get("PERSONAL_DATA_DB_NAME")
     conn = mysql.connector.connection.MySQLConnection(user=username,
                                                       password=password,
                                                       host=host_name,
