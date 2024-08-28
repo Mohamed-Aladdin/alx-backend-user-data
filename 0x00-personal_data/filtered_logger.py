@@ -71,7 +71,7 @@ def main():
 
 class RedactingFormatter(logging.Formatter):
     """
-    Redacting Formatter class for filtering PII fields
+    Redacting Formatter class
     """
 
     REDACTION = "***"
