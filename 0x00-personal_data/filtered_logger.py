@@ -52,7 +52,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 def main():
     """
-    Main function to retrieve user data from database and log to console
+    Main function that returns nothing
     """
     db = get_db()
     cursor = db.cursor()
