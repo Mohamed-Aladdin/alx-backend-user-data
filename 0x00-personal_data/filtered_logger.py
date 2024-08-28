@@ -8,12 +8,24 @@ from os import environ
 import mysql.connector
 
 
+# # PII fields to be redacted
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    """returns the log message obfuscated
+    """
+    Replaces sensitive information in a message with a redacted value
+    based on the list of fields to redact
+
+    Args:
+        fields: list of fields to redact
+        redaction: the value to use for redaction
+        message: the string message to filter
+        separator: the separator to use between fields
+
+    Returns:
+        The filtered string message with redacted values
     """
     for f in fields:
         message = re.sub(f'{f}=.*?{separator}',
@@ -22,7 +34,12 @@ def filter_datum(fields: List[str], redaction: str,
 
 
 def get_logger() -> logging.Logger:
-    """returns a logging.Logger object
+    """
+    Returns a Logger object for handling Personal Data
+
+    Returns:
+        A Logger object with INFO log level and RedactingFormatter
+        formatter for filtering PII fields
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
@@ -36,34 +53,39 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """returns a connector to the database
+    """
+    Returns a MySQLConnection object for accessing Personal Data database
+
+    Returns:
+        A MySQLConnection object using connection details from
+        environment variables
     """
     username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
     password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host_name = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = environ.get("PERSONAL_DATA_DB_NAME")
 
-    conn = mysql.connector.connection.MySQLConnection(user=username,
+    cnx = mysql.connector.connection.MySQLConnection(user=username,
                                                      password=password,
-                                                     host=host_name,
+                                                     host=host,
                                                      database=db_name)
-    return conn
+    return cnx
 
 
 def main():
-    """Main method that retrieves users data
-    from the database and log to the console
+    """
+    Main function to retrieve user data from database and log to console
     """
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
-    fields = [f[0] for f in cursor.description]
+    field_names = [i[0] for i in cursor.description]
 
     logger = get_logger()
 
     for row in cursor:
-        string_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, fields))
-        logger.info(string_row.strip())
+        str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, field_names))
+        logger.info(str_row.strip())
 
     cursor.close()
     db.close()
@@ -71,7 +93,7 @@ def main():
 
 class RedactingFormatter(logging.Formatter):
     """
-    Redacting Formatter class
+    Redacting Formatter class for filtering PII fields
     """
 
     REDACTION = "***"
