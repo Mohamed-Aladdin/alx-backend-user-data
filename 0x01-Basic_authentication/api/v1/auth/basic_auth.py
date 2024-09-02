@@ -6,6 +6,7 @@ from typing import TypeVar
 from models.user import User
 from api.v1.auth.auth import Auth
 
+
 class BasicAuth(Auth):
     """Basic Auth class
     """
@@ -17,12 +18,12 @@ class BasicAuth(Auth):
         """
         if authorization_header is None \
             or not isinstance(authorization_header, str) \
-            or not authorization_header.startswith('Basic '):
+                or not authorization_header.startswith('Basic '):
             return None
         return authorization_header.split(' ')[-1]
 
     def decode_base64_authorization_header(
-            self,base64_authorization_header: str) -> str:
+            self, base64_authorization_header: str) -> str:
         """returns the decoded value of a Base64
         string base64_authorization_header
         """
@@ -38,12 +39,12 @@ class BasicAuth(Auth):
             return None
 
     def extract_user_credentials(
-            self,decoded_base64_authorization_header: str) -> (str, str):
+            self, decoded_base64_authorization_header: str) -> (str, str):
         """returns the user email and password from the Base64 decoded value
         """
         if decoded_base64_authorization_header is None \
             or not isinstance(decoded_base64_authorization_header, str) \
-            or ':' not in decoded_base64_authorization_header:
+                or ':' not in decoded_base64_authorization_header:
             return (None, None)
         email, password = decoded_base64_authorization_header.split(':', 1)
         return (email, password)
