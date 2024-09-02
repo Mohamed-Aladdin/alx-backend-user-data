@@ -19,7 +19,7 @@ class Auth:
                 if path.startswith(excluded_path[:-1]):
                     return False
             elif path == excluded_path or path == excluded_path.rstrip('/') \
-                or ''.join([path, '/']) == excluded_path:
+                    or ''.join([path, '/']) == excluded_path:
                 return False
         return True
 

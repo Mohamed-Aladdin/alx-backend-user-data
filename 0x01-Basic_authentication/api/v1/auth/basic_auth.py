@@ -28,7 +28,7 @@ class BasicAuth(Auth):
         string base64_authorization_header
         """
         if base64_authorization_header is None \
-            or not isinstance(base64_authorization_header, str):
+                or not isinstance(base64_authorization_header, str):
             return None
 
         try:
