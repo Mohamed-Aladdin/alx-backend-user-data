@@ -7,7 +7,7 @@ from flask import abort, jsonify, request
 from models.user import User
 
 
-app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_auth():
     """Session Auth handler
     """
@@ -35,7 +35,8 @@ def session_auth():
     return jsonify({"error": "wrong password"}), 401
 
 
-app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/auth_session/logout',
+                methods=['DELETE'], strict_slashes=False)
 def logout():
     """Logout handler
     """
