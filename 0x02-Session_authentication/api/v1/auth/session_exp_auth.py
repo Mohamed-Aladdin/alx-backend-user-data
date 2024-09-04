@@ -7,6 +7,7 @@ from flask import request
 from session_auth import SessionAuth
 from datetime import datetime, timedelta
 
+
 class SessionExpAuth(SessionAuth):
     """Session Expiry Auth class
     """
