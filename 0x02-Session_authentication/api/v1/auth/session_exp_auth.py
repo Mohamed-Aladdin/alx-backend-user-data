@@ -26,7 +26,7 @@ class SessionExpAuth(SessionAuth):
         """
         if user_id is None or not isinstance(user_id, str):
             return None
-        session_id = self.create_session(user_id)
+        session_id = super().create_session(user_id)
         self.user_id_by_session_id[session_id] = {
             'user_id': user_id,
             'created_at': datetime.now()
