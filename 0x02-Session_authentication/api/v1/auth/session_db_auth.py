@@ -34,7 +34,7 @@ class SessionDBAuth(SessionExpAuth):
             return None
         session_list = UserSession.search({'session_id': session_id})
 
-        if len(session_list) == 0:
+        if session_list is None or len(session_list) <= 0:
             return None
         time_now = datetime.now()
         time_range = timedelta(seconds=self.session_duration)
