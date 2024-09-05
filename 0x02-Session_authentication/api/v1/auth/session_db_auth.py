@@ -18,11 +18,11 @@ class SessionDBAuth(SessionExpAuth):
             return None
         session_id = super().create_session(user_id)
 
-        kwargs = {
+        session_dictionary = {
             'user_id': user_id,
             'session_id': session_id
         }
-        user_session = UserSession(**kwargs)
+        user_session = UserSession(**session_dictionary)
         user_session.save()
         return session_id
 
