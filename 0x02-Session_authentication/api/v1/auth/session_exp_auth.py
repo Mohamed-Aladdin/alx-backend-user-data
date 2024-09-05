@@ -4,7 +4,7 @@ Module of Session Expiry Auth
 """
 import os
 from flask import request
-from auth.session_auth import SessionAuth
+from .session_auth import SessionAuth
 from datetime import datetime, timedelta
 
 
