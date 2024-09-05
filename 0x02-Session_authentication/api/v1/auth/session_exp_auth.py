@@ -39,7 +39,7 @@ class SessionExpAuth(SessionAuth):
         """
         if session_id is None or not isinstance(session_id, str):
             return None
-        if not self.user_id_for_session_id(session_id):
+        if not super().user_id_for_session_id(session_id):
             return None
         session_dictionary = self.user_id_by_session_id[session_id]
 
