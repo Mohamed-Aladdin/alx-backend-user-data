@@ -4,7 +4,7 @@ Module of Session DB Auth
 """
 from datetime import datetime, timedelta
 from models.user_session import UserSession
-from auth.session_exp_auth import SessionExpAuth
+from .session_exp_auth import SessionExpAuth
 
 
 class SessionDBAuth(SessionExpAuth):
