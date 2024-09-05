@@ -38,7 +38,7 @@ class SessionDBAuth(SessionExpAuth):
             return None
         time_now = datetime.now()
         time_range = timedelta(seconds=self.session_duration)
-        expiry_time = session_list['created_at'] + time_range
+        expiry_time = session_list[0].created_at + time_range
 
         if expiry_time < time_now:
             return None
