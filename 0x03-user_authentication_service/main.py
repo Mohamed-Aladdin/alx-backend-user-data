@@ -57,7 +57,7 @@ def profile_logged(session_id: str) -> None:
         'session_id': session_id
     }
 
-    res = requests.get(url, cookies)
+    res = requests.get(url, cookies=cookies)
     assert res.status_code == 200
     assert "email" in res.json()
 
@@ -85,7 +85,7 @@ def log_out(session_id: str) -> None:
         'session_id': session_id
     }
 
-    res = requests.delete(url, cookies)
+    res = requests.delete(url, cookies=cookies)
     assert res.status_code == 200
     assert res.json() == {"message": "Bienvenue"}
 
