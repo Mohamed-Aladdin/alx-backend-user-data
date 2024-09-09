@@ -35,7 +35,7 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """The method should save the user to the database
         """
-        new_user = User(email=email, hashed_password = hashed_password)
+        new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
         return new_user
@@ -58,7 +58,7 @@ class DB:
         then will update the user’s attributes as passed in the method’s
         arguments then commit changes to the database
         """
-        fetched_user = self.find_user_by(id = user_id)
+        fetched_user = self.find_user_by(id=user_id)
 
         for k, v in kwargs.items():
             if not hasattr(fetched_user, k):
